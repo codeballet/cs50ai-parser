@@ -1,6 +1,5 @@
 import nltk
 import sys
-from nltk.tree import Tree
 from nltk.tokenize import word_tokenize
 
 # uncomment below line if 'punkt' not downloaded
@@ -55,10 +54,10 @@ def main():
 
     # experimenting with tree
     print(trees)
-    print(type(trees))
-    t = Tree.fromlist(trees)
-    print(type(t))
-    print(t.label())
+    print(trees[0])
+    print(trees[0].label())
+    print(trees[0][0])
+    print(trees[0][0].label())
 
     # Print each tree with noun phrase chunks
     for tree in trees:
