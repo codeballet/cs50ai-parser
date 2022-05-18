@@ -55,7 +55,9 @@ def main():
 
     # experimenting with tree
     print(trees)
+    print(type(trees))
     t = Tree.fromlist(trees)
+    print(type(t))
     print(t.label())
 
     # Print each tree with noun phrase chunks
