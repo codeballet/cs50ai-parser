@@ -1,8 +1,10 @@
 import nltk
 import sys
+from nltk.tree import Tree
 from nltk.tokenize import word_tokenize
 
-nltk.download('punkt')
+# uncomment below line if 'punkt' not downloaded
+# nltk.download('punkt')
 
 TERMINALS = """
 Adj -> "country" | "dreadful" | "enigmatical" | "little" | "moist" | "red"
@@ -51,6 +53,11 @@ def main():
         print("Could not parse sentence.")
         return
 
+    # experimenting with tree
+    print(trees)
+    t = Tree.fromlist(trees)
+    print(t.label())
+
     # Print each tree with noun phrase chunks
     for tree in trees:
         tree.pretty_print()
@@ -83,7 +90,7 @@ def np_chunk(tree):
     whose label is "NP" that does not itself contain any other
     noun phrases as subtrees.
     """
-    raise NotImplementedError
+    return []
 
 
 if __name__ == "__main__":
