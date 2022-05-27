@@ -19,9 +19,11 @@ V -> "smiled" | "tell" | "were"
 """
 
 NONTERMINALS = """
-S -> NP VP
-NP -> N | Det N
-VP -> V | V NP
+S -> NP | NP VP
+NP -> N | Det N | NP PP | Det AP N
+VP -> V | V NP | V PP | NP V | VP Conj VP
+PP -> P | P NP
+AP -> Adj | Adj Adj | Adj Adj Adj
 """
 
 grammar = nltk.CFG.fromstring(NONTERMINALS + TERMINALS)
@@ -52,12 +54,35 @@ def main():
         print("Could not parse sentence.")
         return
 
-    # experimenting with tree
+    # experimenting with tree label function
     print(trees)
+    print("\nLabels:")
     print(trees[0])
     print(trees[0].label())
     print(trees[0][0])
     print(trees[0][0].label())
+
+    # experimenting with tree subtrees function
+    print("\nSubtrees:")
+    for something in trees[0].subtrees():
+        print(something)
+        print(something.label())
+
+    print('\nOnly NP phrases')
+    for e in trees[0].subtrees(lambda e: e.label() == 'NP'):
+        print(e)
+
+    print(f'\nHeight of tree: {trees[0].height()}')
+    t = trees[0]
+    for e in trees[0].subtrees(lambda t: t.height() == 4):
+        print(f'\nheight: {e.height()}')
+        print(e)
+    for e in trees[0].subtrees(lambda t: t.height() == 3):
+        print(f'height: {e.height()}')
+        print(e)
+    for e in trees[0].subtrees(lambda t: t.height() == 2):
+        print(f'height: {e.height()}')
+        print(e)
 
     # Print each tree with noun phrase chunks
     for tree in trees:
@@ -91,7 +116,25 @@ def np_chunk(tree):
     whose label is "NP" that does not itself contain any other
     noun phrases as subtrees.
     """
-    return []
+    # Get all NPs
+    nps_all = list()
+    for e in tree.subtrees(lambda e: e.label() == 'NP'):
+        print(e)
+        nps_all.append(e)
+    print()
+
+    # Get NPs that contain other NPs inside them
+    nps_remove = list()
+    for np1 in nps_all:
+        for np2 in nps_all:
+            if np2 != np1:
+                if np2.height() > np1.height() and np1 in np2:
+                    nps_remove.append(np2)
+
+    # Remove all NPs containing other NPs inside them
+    nps_chunks = list(filter(lambda i: i not in nps_remove, nps_all))
+
+    return nps_chunks
 
 
 if __name__ == "__main__":
