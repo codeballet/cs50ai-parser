@@ -54,36 +54,6 @@ def main():
         print("Could not parse sentence.")
         return
 
-    # experimenting with tree label function
-    print(trees)
-    print("\nLabels:")
-    print(trees[0])
-    print(trees[0].label())
-    print(trees[0][0])
-    print(trees[0][0].label())
-
-    # experimenting with tree subtrees function
-    print("\nSubtrees:")
-    for something in trees[0].subtrees():
-        print(something)
-        print(something.label())
-
-    print('\nOnly NP phrases')
-    for e in trees[0].subtrees(lambda e: e.label() == 'NP'):
-        print(e)
-
-    print(f'\nHeight of tree: {trees[0].height()}')
-    t = trees[0]
-    for e in trees[0].subtrees(lambda t: t.height() == 4):
-        print(f'\nheight: {e.height()}')
-        print(e)
-    for e in trees[0].subtrees(lambda t: t.height() == 3):
-        print(f'height: {e.height()}')
-        print(e)
-    for e in trees[0].subtrees(lambda t: t.height() == 2):
-        print(f'height: {e.height()}')
-        print(e)
-
     # Print each tree with noun phrase chunks
     for tree in trees:
         tree.pretty_print()
@@ -119,9 +89,7 @@ def np_chunk(tree):
     # Get all NPs
     nps_all = list()
     for e in tree.subtrees(lambda e: e.label() == 'NP'):
-        print(e)
         nps_all.append(e)
-    print()
 
     # Get NPs that contain other NPs inside them
     nps_remove = list()
