@@ -2,11 +2,42 @@
 
 ## Introduction
 
-Parser is an AI that parse sentences and extract noun phrases.
+Parser is an AI that parses sentences and extracts noun phrases.
 
 Parsing sentences is a common task in natural language processing, aiming to understand the structure and meaning of a sentence. In particular, extracting noun phrases may help to gain an understanding of what a sentence is about.
 
-The AI Parser of this project uses the concept of 'context-free grammar formalism' to parse English sentences and determine their structure. The Python library used for the language processing is [NLTK (Natural Language Toolkit)](https://www.nltk.org/index.html).
+The AI Parser in this project uses the concept of 'context-free grammar formalism' to parse English sentences and determine their structure. The Python library used for the language processing is [NLTK (Natural Language Toolkit)](https://www.nltk.org/index.html).
+
+## Using the AI
+
+The AI can parse sentences from provided text files or by entering text in the terminal. For instance, entering the following command will allow you to type a sentence in the terminal:
+
+```
+python parser.py
+```
+
+However, the AI also accepts text files. Using one of the provided text files in the `sentences/` directory, you may for instance enter:
+
+```
+python parser.py sentences/1.txt
+```
+
+With that above command, you would get the result:
+
+```
+        S
+   _____|___
+  NP        VP
+  |         |
+  N         V
+  |         |
+holmes     sat
+
+Noun Phrase Chunks
+holmes
+```
+
+Please do note that the AI has by default a very limited knowledge of vocabular. Please see the below "Limitations" heading for more information.
 
 ## Context-free grammar
 
@@ -30,7 +61,7 @@ For example, if `"the home"` is a noun phrase chunk, then `"the armchair in the 
 
 As may be seen in the code, the project currently contains an extremely small collection of words, stored in the `TERMINALS` variable. Moreover, the collection of context-free grammar rules is also very limited, stored in the `NONTERMINALS` variable.
 
-The collections of `TERMINALS` and `NONTERMINALS` is just about big enough to parse the sentences provided in the project, stored as a collection of files in the `./sentences/` directory. In case you would like to parse other sentences, please do expand the content of the `TERMINALS` and the `NONTERMINALS` variables.
+The collections of `TERMINALS` and `NONTERMINALS` is just about big enough to parse the sentences provided with the project, stored as a collection of files in the `./sentences/` directory. In case you would like to parse other sentences, please do expand the content of the `TERMINALS` and the `NONTERMINALS` variables.
 
 ## Intellectual Property Rights
 
